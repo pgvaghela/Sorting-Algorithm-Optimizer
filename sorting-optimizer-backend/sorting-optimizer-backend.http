@@ -1,0 +1,93 @@
+### Sorting Optimizer API Tests
+
+# Base URL
+@baseUrl = https://localhost:7149
+@httpBaseUrl = http://localhost:5290
+
+### Test 1: Analyze endpoint - Get performance of all algorithms
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [64, 34, 25, 12, 22, 11, 90, 88, 76, 54, 32, 21, 19, 8, 7, 6, 5, 4, 3, 2, 1]
+}
+
+### Test 2: Best endpoint - Get only the best performing algorithm
+POST {{baseUrl}}/api/sort/best
+Content-Type: application/json
+
+{
+  "data": [64, 34, 25, 12, 22, 11, 90, 88, 76, 54, 32, 21, 19, 8, 7, 6, 5, 4, 3, 2, 1]
+}
+
+### Test 3: Small dataset test
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [5, 2, 8, 1, 9]
+}
+
+### Test 4: Large dataset test
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [64, 34, 25, 12, 22, 11, 90, 88, 76, 54, 32, 21, 19, 8, 7, 6, 5, 4, 3, 2, 1, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 89, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 63, 62, 61, 60, 59, 58, 57, 56, 55, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 33, 31, 30, 29, 28, 27, 26, 24, 23, 20, 18, 17, 16, 15, 14, 13, 10, 9]
+}
+
+### Test 5: Already sorted array
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+### Test 6: Reverse sorted array
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+}
+
+### Test 7: Array with duplicates
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
+}
+
+### Test 8: Single element array
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [42]
+}
+
+### Test 9: Empty array
+POST {{baseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": []
+}
+
+### Test 10: Best algorithm with large dataset
+POST {{baseUrl}}/api/sort/best
+Content-Type: application/json
+
+{
+  "data": [64, 34, 25, 12, 22, 11, 90, 88, 76, 54, 32, 21, 19, 8, 7, 6, 5, 4, 3, 2, 1, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 89, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 63, 62, 61, 60, 59, 58, 57, 56, 55, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 33, 31, 30, 29, 28, 27, 26, 24, 23, 20, 18, 17, 16, 15, 14, 13, 10, 9]
+}
+
+### Test 11: HTTP version (fallback)
+POST {{httpBaseUrl}}/api/sort/analyze
+Content-Type: application/json
+
+{
+  "data": [64, 34, 25, 12, 22, 11, 90, 88, 76, 54, 32, 21, 19, 8, 7, 6, 5, 4, 3, 2, 1]
+}
