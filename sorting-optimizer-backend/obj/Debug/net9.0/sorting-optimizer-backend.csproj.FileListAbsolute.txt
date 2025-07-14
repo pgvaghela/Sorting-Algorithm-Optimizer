@@ -68,3 +68,4 @@
 /Users/priyanshvaghela/Desktop/projects/sorting-optimizer/sorting-optimizer-backend/obj/Debug/net9.0/sorting-optimizer-backend.pdb
 /Users/priyanshvaghela/Desktop/projects/sorting-optimizer/sorting-optimizer-backend/obj/Debug/net9.0/sorting-optimizer-backend.genruntimeconfig.cache
 /Users/priyanshvaghela/Desktop/projects/sorting-optimizer/sorting-optimizer-backend/obj/Debug/net9.0/ref/sorting-optimizer-backend.dll
+/Users/priyanshvaghela/Desktop/projects/sorting-optimizer/sorting-optimizer-backend/obj/Debug/net9.0/sorting-optimizer-backend.sourcelink.json

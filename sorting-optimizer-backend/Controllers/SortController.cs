@@ -13,9 +13,9 @@ namespace SortingOptimizer.Controllers {
             _analyzer = new SortingAnalyzer();
         }
 
-        [HttpPost("analyze")]  // returns all algorithms' performance
-        public IEnumerable<SortResult> Analyze([FromBody] SortRequest req) {
-            return _analyzer.Analyze(req.Data ?? new int[0]);
+        [HttpPost("analyze")]
+        public SortAnalysisResponse Analyze([FromBody] SortRequest req) {
+            return _analyzer.AnalyzeWithImprovement(req.Data ?? new int[0]);
         }
 
         [HttpPost("best")]    // returns only the best algorithm
