@@ -1,0 +1,93 @@
+<div class="analyzer">
+    <h2>Sorting Algorithm Analyzer</h2>
+
+    <div class="dropzone"
+         (drop)="onFileDropped($event)"
+         (dragover)="onDragOver($event)">
+      <p>Drag and drop a CSV or JSON file here, or use the input below.</p>
+    </div>
+  
+    <form (ngSubmit)="onSubmit()">
+      <label for="data">Enter numbers (comma-separated):</label>
+      <input
+        id="data"
+        name="data"
+        [(ngModel)]="rawInput"
+        placeholder="e.g. 5,3,8,1,2"
+        required
+      />
+      <button type="submit" [disabled]="loading">Analyze</button>
+    </form>
+  
+    <div *ngIf="loading">Analyzing… please wait.</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="results && results.length > 0" class="results">
+      <h3>Results</h3>
+      <div class="viz-selector">
+        <label for="vizType">Visualization:</label>
+        <select id="vizType" [(ngModel)]="selectedViz" name="vizType" (change)="onVizTypeChange(selectedViz)">
+          <option *ngFor="let v of vizTypes" [value]="v.value">{{ v.label }}</option>
+        </select>
+      </div>
+
+      <!-- Bar Chart -->
+      <canvas *ngIf="selectedViz === 'bar'" baseChart
+              [data]="barChartData"
+              [type]="'bar'"
+              [options]="{ responsive: true, plugins: { legend: { display: false } } }">
+      </canvas>
+
+      <!-- Line Chart -->
+      <canvas *ngIf="selectedViz === 'line'" baseChart
+              [data]="lineChartData"
+              [type]="'line'"
+              [options]="{ responsive: true }">
+      </canvas>
+
+      <!-- Scatter Plot -->
+      <canvas *ngIf="selectedViz === 'scatter'" baseChart
+              [data]="scatterChartData"
+              [type]="'scatter'"
+              [options]="{ responsive: true }">
+      </canvas>
+
+      <!-- Table -->
+      <div *ngIf="selectedViz === 'table'">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Time (ms)</th>
+              <th>Recommended</th>
+              <th>Distribution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of results">
+              <td>{{ r.algorithm }}</td>
+              <td>{{ r.elapsedMilliseconds | number:'1.0-2' }}</td>
+              <td>{{ r.isRecommended ? 'Yes' : '' }}</td>
+              <td>{{ r.distributionProfile }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="summary">
+        <p *ngIf="improvementPercent !== undefined">
+          <strong>Improvement over baseline:</strong>
+          <span [ngClass]="{'positive': improvementPercent > 0, 'negative': improvementPercent < 0}">
+            {{ improvementPercent | number:'1.0-2' }}%
+          </span>
+        </p>
+        <p *ngIf="recommended">
+          <strong>Recommended Algorithm:</strong> {{ recommended.algorithm }}
+        </p>
+        <p *ngIf="baseline">
+          <strong>Baseline (BubbleSort) Time:</strong> {{ baseline.elapsedMilliseconds | number:'1.0-2' }} ms
+        </p>
+      </div>
+    </div>
+  </div>
+  
